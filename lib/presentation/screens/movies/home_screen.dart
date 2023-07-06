@@ -1,3 +1,4 @@
+import 'package:cinema_pedia/config/constants/environment.dart';
 import 'package:flutter/material.dart';
 
 class HomaScreen extends StatelessWidget {
@@ -7,9 +8,9 @@ class HomaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       body: Center(
-        child: Text('Hola Mundo'),
+        child: Text(Environment.theMovieDbKey),
       ),
     );
   }
