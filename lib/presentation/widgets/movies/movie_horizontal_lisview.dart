@@ -1,6 +1,7 @@
 import 'package:cinema_pedia/config/helpers/human_format.dart';
 import 'package:cinema_pedia/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 
 class MovieHorizontalLisview extends StatefulWidget {
@@ -36,7 +37,6 @@ class _MovieHorizontalLisviewState extends State<MovieHorizontalLisview> {
       if (widget.loadNextpage == null) return;
 
       if ( (scrollController.position.pixels + 200) >= scrollController.position.maxScrollExtent){
-        print('load next moovies ');
         widget.loadNextpage!();
       }
     });
@@ -101,7 +101,10 @@ class _Slide extends StatelessWidget {
                 fit: BoxFit.cover,
                 width: 150,
                 loadingBuilder: (context, child, loadingProgress) {
-                  return child;
+                  return GestureDetector(
+                    onTap: () => context.push('/movie/${ movie.id }'),
+                    child: child
+                    );
                 },
                 ),
             ),

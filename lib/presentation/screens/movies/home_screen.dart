@@ -1,4 +1,3 @@
-import 'package:cinema_pedia/presentation/providers/movies/movies_providers.dart';
 import 'package:cinema_pedia/presentation/providers/provider.dart';
 import 'package:cinema_pedia/presentation/widgets/widget.dart';
 import 'package:flutter/material.dart';
@@ -11,19 +10,17 @@ class HomaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       body: Center(
         child: _HomeView(),
       ),
-      bottomNavigationBar: CustomBottomNavigation(),
+      bottomNavigationBar: const CustomBottomNavigation(),
     );
   }
 }
 
 class _HomeView extends ConsumerStatefulWidget {
-  const _HomeView({
-    super.key,
-  });
+  
 
   @override
   _HomeViewState createState() => _HomeViewState();
