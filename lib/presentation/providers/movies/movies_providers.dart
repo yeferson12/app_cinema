@@ -19,6 +19,20 @@ final popularMoviesProvider = StateNotifierProvider<MovieNotifier,List<Movie>>((
   );
 });
 
+final topRatedMoviesProvider = StateNotifierProvider<MovieNotifier,List<Movie>>((ref) {
+  final fetchMoreMovies = ref.watch( movieRepositoryProvider ).getTopRated;
+  return MovieNotifier(
+    fetchMoreMovies: fetchMoreMovies
+  );
+});
+
+final upComingMoviesProvider = StateNotifierProvider<MovieNotifier,List<Movie>>((ref) {
+  final fetchMoreMovies = ref.watch( movieRepositoryProvider ).getUpComing;
+  return MovieNotifier(
+    fetchMoreMovies: fetchMoreMovies
+  );
+});
+
 typedef MovieCallback = Future<List<Movie>> Function({int page});
 
 //? esta class mantiene un arreglo de peliculas, 

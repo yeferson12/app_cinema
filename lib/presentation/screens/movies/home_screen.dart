@@ -1,4 +1,5 @@
 import 'package:cinema_pedia/presentation/providers/movies/movies_providers.dart';
+import 'package:cinema_pedia/presentation/providers/provider.dart';
 import 'package:cinema_pedia/presentation/widgets/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,12 +36,21 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
     ref.read(nowplayingMoviesProvider.notifier).loadNextPage();
     ref.read(popularMoviesProvider.notifier).loadNextPage();
+    ref.read(topRatedMoviesProvider.notifier).loadNextPage();
+    ref.read(upComingMoviesProvider.notifier).loadNextPage();
   }
 
   @override
   Widget build(BuildContext context) {
+
+    final initialLoading = ref.watch(initialLoadingProvider);
+    if( initialLoading ) return const FullScrennLoader(); 
+
     final nowPlayingMovies = ref.watch( nowplayingMoviesProvider );
     final popularMovies    = ref.watch( popularMoviesProvider );
+    final topRatedMovies   = ref.watch( topRatedMoviesProvider );
+    final upComingMovies   = ref.watch( upComingMoviesProvider );
+
 
     return CustomScrollView(
       slivers:[
@@ -60,10 +70,10 @@ class _HomeViewState extends ConsumerState<_HomeView> {
             loadNextpage: ()=> ref.read(nowplayingMoviesProvider.notifier).loadNextPage(),
             ),
             MovieHorizontalLisview(
-            movies: nowPlayingMovies,
+            movies: topRatedMovies,
             label: 'Próximamente', 
             subLabel: 'mes 2', 
-            loadNextpage: ()=> ref.read(nowplayingMoviesProvider.notifier).loadNextPage(),
+            loadNextpage: ()=> ref.read(topRatedMoviesProvider.notifier).loadNextPage(),
             ),
             MovieHorizontalLisview(
             movies: popularMovies,
@@ -72,10 +82,10 @@ class _HomeViewState extends ConsumerState<_HomeView> {
             loadNextpage: ()=> ref.read(popularMoviesProvider.notifier).loadNextPage(),
             ),
             MovieHorizontalLisview(
-            movies: nowPlayingMovies,
-            label: 'Mejor calificadas', 
-            subLabel: 'De todos los tiempos', 
-            loadNextpage: ()=> ref.read(nowplayingMoviesProvider.notifier).loadNextPage(),
+            movies: upComingMovies,
+            label: 'Coming', 
+            subLabel: 'comid', 
+            loadNextpage: ()=> ref.read(upComingMoviesProvider.notifier).loadNextPage(),
             ),
     
             const SizedBox(height: 10)
