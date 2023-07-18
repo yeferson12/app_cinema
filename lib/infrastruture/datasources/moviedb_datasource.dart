@@ -1,3 +1,4 @@
+import 'package:cinema_pedia/infrastruture/models/moviedb/movie_details.dart';
 import 'package:dio/dio.dart';
 import 'package:cinema_pedia/config/constants/environment.dart';
 import 'package:cinema_pedia/domain/datasources/movies_datasource.dart';
@@ -70,6 +71,20 @@ class MoviedbDatasources extends MovieDastasource {
     );
     return _jsonToMovie(response.data);
   }
+  
+  @override
+  Future<Movie> getMovieById(String id) async {
+   final response = await dio.get('/movie/$id');
+   if( response.statusCode != 200 ) throw Exception('Movie with id: $id not fount');
+
+   final movieDetails = MovieDetails.fromJson( response.data );
+
+   final Movie movie = MoviMapper.movieDetailsToEntity(movieDetails);
+
+   return movie;
+  }
+  
+
   
   
 } 
